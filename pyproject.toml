@@ -1,0 +1,57 @@
+[tool.poetry]
+name = "ecg2af_web_app"
+version = "0.0.1"
+description = "ML4H Take-Home Assignment"
+# license = ""
+authors = ["Nick DiNapoli <nmd67@cornell.edu.com>"]
+maintainers = ["Nick DiNapoli <nmd67@cornell.edu.com>"]
+readme = "README.md"
+# homepage = ""
+repository = "https://github.com/NickDiNapoli/ecg2af_web_app"
+# documentation = ""
+# keywords = ""
+classifiers = [
+    "Natural Language :: English",
+    "Topic :: Scientific/Engineering :: ML",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+packages = [{ include = "ecg2af_web_app", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<=3.11.8"
+
+
+[tool.poetry.group.dev.dependencies]
+# pytest = "^7.2.0"
+# pytest-cov = "^4.0.0"
+# flake8 = "^6.0.0"
+# black = "^23.1.0"
+# isort = "^5.12.0"
+# mypy = "^1.0.0"
+Flask = "3.0.3"
+h5py = "3.12.1"
+numpy = "2.0.2"
+tensorflow = "2.18.0"
+
+
+[tool.poetry.group.deploy.dependencies]
+python-semantic-release = "^7.32.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.semantic_release]
+version_variable = "pyproject.toml:version"
+branch = "develop"
+changelog_file = "CHANGELOG.md"
+build_command = "poetry build"
+dist_path = "dist/"
+upload_to_release = true
+upload_to_pypi = false
+remove_dist = false
+patch_without_tag = true
+major_on_zero = true

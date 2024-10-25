@@ -1,0 +1,4 @@
+Flask
+h5py
+numpy
+tensorflow
