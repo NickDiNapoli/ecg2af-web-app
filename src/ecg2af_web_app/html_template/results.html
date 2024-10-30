@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Prediction Results</h1>
+    
+    <div id="fig1" style="width:50%;height:400px;"></div>
+    <div id="fig2" style="width:50%;height:400px;"></div>
+
+    <script>
+        // Pass the Plotly figure data from Flask to JavaScript
+        const fig1Data = JSON.parse('{{ fig1_json | safe }}');
+        const fig2Data = JSON.parse('{{ fig2_json | safe }}');
+
+        // Create Plotly figures
+        Plotly.newPlot('fig1', fig1Data.data, fig1Data.layout);
+        Plotly.newPlot('fig2', fig2Data.data, fig2Data.layout);
+    </script>
+</body>
+</html>
