@@ -1,75 +1,91 @@
 # ecg2af-web-app
 
 # Getting Started
-* [Setup on MacOS](##setup-on-macos)
-* [Application Usage](##application-usage)
-* [Scalability Question](##scalability-question)
-* [Use of external resources](##use-of-external-resources)
+* [Setup on MacOS](#setup-on-macos)
+* [Application Usage](#application-usage)
+* [Scalability Question](#scalability-question)
+* [Use of external resources](#use-of-external-resources)
 
 ## Setup on MacOS
 
-***Note: I highly recommend <u>not</u> using an M2 chip Mac machine when trying to use the ml4h image***. There are many issues that arise with how TensorFlow gets built. Resolving how it gets built often causes incompatibility issues between Python version, `tensorflow`, and `tensorflow-<xxx>` libraries.
+***Note: I highly recommend <u>not</u> using an M2 chip Mac machine when trying to use the ml4h image***. There are many issues that arise with how TensorFlow gets built. Resolving how it gets built often causes incompatibility issues between Python version, `tensorflow`, and `tensorflow-<xxx>` libraries. You will likely encounter a message like the one below: 
+
+***The TensorFlow library was compiled to use AVX instructions, but these aren't available on your machine. Aborted***
 
 ### Initial setup steps:
+Clone this project from GitHub:
 ```
 git clone https://github.com/NickDiNapoli/ecg2af-web-app.git
 ```
+Clone the ML4H repository from GitHub:
 ```
 git clone https://github.com/broadinstitute/ml4h.git
 ```
-If needed, complete the following two steps:
+If needed, complete the following two steps. Installs Git Large File Storage (LFS) on your system using Homebrew:
 ```
 brew install git-lfs
 ```
+Set up Git to use Git LFS:
 ```
 git lfs install
 ```
+Migrate into the ml4h directory:
 ```
 cd ml4h
 ```
+Tell Git LFS to download only the specified model file:
 ```
 git lfs pull --include "model_zoo/ECG2AF/ecg_5000_survival_curve_af_quadruple_task_mgh_v2021_05_21.h5"
 ```
 
 ### If using existing Docker image (I used for application):
+Migrate into the ecg2af-web-app directory:
 ```
 cd ecg2af-web-app
 ```
+Pull the ML4H Docker image:
 ```
 docker pull ghcr.io/broadinstitute/ml4h:tf2.9-latest-cpu
 ```
-Change the model path to wherever you have it stored locally which is likely: ml4h/model_zoo/ECG2AF/ecg_5000_survival_curve_af_quadruple_task_mgh_v2021_05_21.h5
+Run the Docker container and mount both the this ecg2af-web-app project as well as the ECG2AF model. Change the model path to wherever you have it stored locally which is likely: ml4h/model_zoo/ECG2AF/ecg_5000_survival_curve_af_quadruple_task_mgh_v2021_05_21.h5
 ```
 docker run -it --rm -p 5001:5001 -v $(pwd):/app -v /Users/nickdinapoli/Downloads/ecg_5000_survival_curve_af_quadruple_task_mgh_v2021_05_21.h5:/app/src/ecg2af_web_app/models/ecg_5000_survival_curve_af_quadruple_task_mgh_v2021_05_21.h5 ghcr.io/broadinstitute/ml4h:tf2.9-latest-cpu /bin/bash
 ```
+Install this (ecg2af-web-app) Python project:
 ```
 pip install .
 ```
+Install additional dependencies from requirements file:
 ```
 pip install -r requirements.txt
 ```
+Migrate into the directory which contains the application:
 ```
 cd src/ecg2af_web_app/
 ```
+Run the application using Python:
 ```
 python app.py
 ```
 
 ### If using Poetry (I used for running local ipynb):
+Install Poetry on machine if it is not already:
 ```
 pip install poetry
 ```
+Update `poetry.lock` file based on the dependencies in `pyproject.toml`. If `poetry lock` fails with ml4h included in the dependencies, comment out the dependency:
 ```
 poetry lock
 ```
-If `poetry lock` fails with ml4h included in the dependencies, comment out the dependency.
+Install the dependencies in the `poetry.lock` file:
 ```
 poetry install
 ```
+Open new shell with activated virtual environment that Poetry has created:
 ```
 poetry shell
 ```
-If ml4h still needs to be installed complete one the following two steps: 
+If ml4h still needs to be installed, complete one the following two steps: 
 ```
 pip install -r requirements.txt
 ``` 
@@ -81,7 +97,7 @@ and then
 ```
 pip install .
 ```
-Select `.venv` for kernel.
+Select `.venv` for the kernel.
 
 ### Alternative approaches
 
