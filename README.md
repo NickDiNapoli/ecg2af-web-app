@@ -150,7 +150,7 @@ pip install .
 
 For this project I chose to use to use Flask as the web framework for a few reasons. I do not have a ton of prior experience with web applications so I went with Flask because of its simplicity and because I had used it once or twice in my Master's coursework. 
 
-Once you have ran `python app.py`, the first HTTP address will navigate you to a simple welcome page seen below:
+Once you have run `python app.py`, the first HTTP address will navigate you to a simple welcome page as seen below:
 
 ![welcome_page](images/welcome_page.png)
 
